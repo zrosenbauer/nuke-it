@@ -24,6 +24,21 @@ export async function readIgnoreFile(filePath = process.cwd()) {
 }
 
 /**
+ * Check if there are existing backups.
+ * @param rootDir - The root directory of the project.
+ * @returns True if there are existing backups, false otherwise.
+ */
+export async function hasExistingBackups(rootDir = process.cwd()) {
+	try {
+		const backupDir = path.join(rootDir, DIR_CACHE);
+		const existingBackups = await readdir(backupDir);
+		return existingBackups.length > 0;
+	} catch (error) {
+		return false;
+	}
+}
+
+/**
  * Create a backup of the files.
  * @param filePaths - The paths to the files to backup.
  * @param rootDir - The root directory of the project.
@@ -108,26 +123,20 @@ export async function initialize(
 		})();
 
 		if (root && !(await isInitialized(filePath))) {
-			if (
-				force === true ||
-				(await consola.prompt(
-					"It seems you haven't nuked anything yet. Would you like to make your initialize a project?",
-					{
-						type: "confirm",
-						default: false,
-					},
-				))
-			) {
+			consola.info("Initializing project...");
+
+			if (!(await exists(cacheDir))) {
 				await mkdir(cacheDir);
-				if (!(await exists(ignoreFile))) {
-					await writeFile(
-						ignoreFile,
-						"# Add your project's ignore patterns here for the files you DO NOT want to nuke",
-					);
-				}
-				await appendToGitignore(gitignoreFile);
-				return true;
 			}
+
+			if (!(await exists(ignoreFile))) {
+				await writeFile(
+					ignoreFile,
+					"# Add your project's ignore patterns here for the files you DO NOT want to nuke",
+				);
+			}
+			await appendToGitignore(gitignoreFile);
+			return true;
 		}
 	}
 	return false;

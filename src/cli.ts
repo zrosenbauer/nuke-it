@@ -7,7 +7,7 @@ import { match } from "ts-pattern";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 import ascii from "#/lib/ascii";
-import { initialize, isInitialized } from "#/lib/project";
+import { hasExistingBackups, initialize, isInitialized } from "#/lib/project";
 import { printTree } from "#/lib/tree";
 import {
 	getNukeEverythingGlob,
@@ -74,6 +74,21 @@ yargs(hideBin(process.argv))
 
 			// MUST be after dirty check cause we add files...
 			await initialize();
+
+			if (!(await hasExistingBackups())) {
+				if (
+					await consola.prompt(
+						"This seems to be the first nuke you've dropped...make sure you know what you're doing! Do you want to continue?",
+						{
+							type: "confirm",
+							default: false,
+						},
+					)
+				) {
+					consola.info("Aborting...");
+					return;
+				}
+			}
 
 			const result = true;
 
