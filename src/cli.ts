@@ -94,6 +94,13 @@ yargs(hideBin(process.argv))
 		},
 	)
 	.command(
+		"clean",
+		"Clean out the backups in the .nuke directory",
+		async (argv) => {
+			// await nukeEverything(process.cwd());
+		},
+	)
+	.command(
 		"list",
 		"List all the files that would be nuked",
 		(yargs) => {

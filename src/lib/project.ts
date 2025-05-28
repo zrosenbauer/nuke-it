@@ -1,4 +1,5 @@
 import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
+import { cp } from "node:fs/promises";
 import path from "node:path";
 import consola from "consola";
 import { exists } from "#/lib/fs";
@@ -20,6 +21,34 @@ export async function readIgnoreFile(filePath = process.cwd()) {
 	} catch (error) {
 		return null;
 	}
+}
+
+/**
+ * Create a backup of the files.
+ * @param filePaths - The paths to the files to backup.
+ * @param rootDir - The root directory of the project.
+ */
+export async function backup(
+	filePaths: string[],
+	runId: number,
+	rootDir = process.cwd(),
+) {
+	if (!(await exists(rootDir))) {
+		throw new Error("Unable to create backup, file does not exist");
+	}
+
+	const backupDir = path.join(rootDir, DIR_CACHE, `backup-${runId}`);
+
+	if (!(await exists(backupDir))) {
+		await mkdir(backupDir, { recursive: true });
+	}
+
+	const backups = filePaths.map(async (filePath) => {
+		const backupFilePath = path.join(backupDir, path.basename(filePath));
+		await cp(filePath, backupFilePath);
+	});
+
+	await Promise.all(backups);
 }
 
 /**

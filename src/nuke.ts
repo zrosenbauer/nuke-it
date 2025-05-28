@@ -2,7 +2,7 @@ import { glob } from "glob";
 import ignore from "ignore";
 import { rimraf } from "rimraf";
 import { P, match } from "ts-pattern";
-import { readIgnoreFile } from "#/lib/project";
+import { backup, readIgnoreFile } from "#/lib/project";
 import { toGlob, unique } from "#/lib/utils";
 
 /**
@@ -11,10 +11,11 @@ import { toGlob, unique } from "#/lib/utils";
  * @returns The paths to the directories that should be nuked.
  */
 export async function nukeEverything(rootDir = process.cwd()) {
-	const cache = await nukeCache(rootDir);
-	const builds = await nukeBuilds(rootDir);
+	const runId = Date.now();
+	const cache = await nukeCache(rootDir, runId);
+	const builds = await nukeBuilds(rootDir, runId);
 	// MUST BE LAST or this breaks it cause we are NUKING node_modules
-	const nodeModules = await nukeNodeModules(rootDir);
+	const nodeModules = await nukeNodeModules(rootDir, runId);
 	return [cache, builds, nodeModules].every((result) => result);
 }
 
@@ -23,10 +24,14 @@ export async function nukeEverything(rootDir = process.cwd()) {
  * @param rootDir - The root directory of the project.
  * @returns The paths to the node_modules directories that should be nuked.
  */
-export async function nukeNodeModules(rootDir = process.cwd()) {
+export async function nukeNodeModules(
+	rootDir = process.cwd(),
+	runId = Date.now(),
+) {
 	const found = await glob(getNukeNodeModulesGlob(), {
 		root: rootDir,
 	});
+	await backup(found, runId, rootDir);
 	return await rimraf(await rejectIgnoredFiles(found, rootDir), {
 		glob: true,
 	});
@@ -37,10 +42,11 @@ export async function nukeNodeModules(rootDir = process.cwd()) {
  * @param rootDir - The root directory of the project.
  * @returns The paths to the cache directories that should be nuked.
  */
-export async function nukeCache(rootDir = process.cwd()) {
+export async function nukeCache(rootDir = process.cwd(), runId = Date.now()) {
 	const found = await glob(getNukeCacheGlob(), {
 		root: rootDir,
 	});
+	await backup(found, runId, rootDir);
 	return await rimraf(await rejectIgnoredFiles(found, rootDir), {
 		glob: false,
 	});
@@ -51,10 +57,11 @@ export async function nukeCache(rootDir = process.cwd()) {
  * @param rootDir - The root directory of the project.
  * @returns The paths to the build directories that should be nuked.
  */
-export async function nukeBuilds(rootDir = process.cwd()) {
+export async function nukeBuilds(rootDir = process.cwd(), runId = Date.now()) {
 	const found = await glob(getNukeBuildsGlob(), {
 		root: rootDir,
 	});
+	await backup(found, runId, rootDir);
 	return await rimraf(await rejectIgnoredFiles(found, rootDir), {
 		glob: false,
 	});
