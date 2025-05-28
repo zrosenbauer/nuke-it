@@ -1,4 +1,4 @@
-import { mkdir, readFile, readdir, rmdir, writeFile } from "node:fs/promises";
+import { mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import { cp } from "node:fs/promises";
 import path from "node:path";
 import consola from "consola";
@@ -72,7 +72,7 @@ export async function backup(
  */
 export async function cleanBackup(rootDir = process.cwd()) {
 	const backupDir = path.join(rootDir, DIR_CACHE);
-	await rmdir(backupDir, { recursive: true });
+	await rm(backupDir, { recursive: true });
 	await mkdir(backupDir, { recursive: true });
 }
 
