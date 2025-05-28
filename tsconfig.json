@@ -1,0 +1,26 @@
+{
+	"$schema": "https://json.schemastore.org/tsconfig",
+	"extends": [
+		"@tsconfig/node24/tsconfig.json"
+	],
+	"compilerOptions": {
+		"baseUrl": ".",
+		"module": "preserve",
+		"moduleResolution": "bundler",
+		"types": [
+			"vitest/importMeta"
+		],
+		"paths": {
+			"#/*": [
+				"./src/*"
+			]
+		}
+	},
+	"include": [
+		"src/**/*.ts"
+	],
+	"exclude": [
+		"node_modules",
+		"dist"
+	]
+}
