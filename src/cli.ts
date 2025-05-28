@@ -95,16 +95,14 @@ yargs(hideBin(process.argv))
 				}
 			}
 
-			const result = true;
+			const result = await match(argv.type)
+				.with("all", () => nukeEverything(process.cwd()))
+				.with("node_modules", () => nukeNodeModules(process.cwd()))
+				.with("cache", () => nukeCache(process.cwd()))
+				.with("build", () => nukeBuilds(process.cwd()))
+				.otherwise(() => Promise.resolve(false));
 
 			if (result) {
-				// const result = await match(argv.type)
-				// 	.with("all", () => nukeEverything(process.cwd()))
-				// 	.with("node_modules", () => nukeNodeModules(process.cwd()))
-				// 	.with("cache", () => nukeCache(process.cwd()))
-				// 	.with("build", () => nukeBuilds(process.cwd()))
-				// 	.otherwise(() => Promise.resolve(false));
-
 				if (argv.noFun !== true) {
 					console.log(ascii.vaultBoy2);
 				}
