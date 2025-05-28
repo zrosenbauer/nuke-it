@@ -77,13 +77,13 @@ yargs(hideBin(process.argv))
 
 			if (!(await hasExistingBackups())) {
 				if (
-					await consola.prompt(
+					!(await consola.prompt(
 						"This seems to be the first nuke you've dropped...make sure you know what you're doing! Do you want to continue?",
 						{
 							type: "confirm",
 							default: false,
 						},
-					)
+					))
 				) {
 					consola.info("Aborting...");
 					return;
