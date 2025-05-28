@@ -79,12 +79,10 @@ yargs(hideBin(process.argv))
 				.with("build", () => nukeBuilds(process.cwd()))
 				.otherwise(() => Promise.resolve(false));
 
-			if (argv.noFun !== true) {
-				console.log(ascii.logo);
-			}
-
 			if (result) {
-				console.log(ascii.vaultBoy2);
+				if (argv.noFun !== true) {
+					console.log(ascii.vaultBoy2);
+				}
 				consola.success("You successfully nuked your project, good job!");
 			} else {
 				consola.info(
