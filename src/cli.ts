@@ -7,7 +7,12 @@ import { match } from "ts-pattern";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 import ascii from "#/lib/ascii";
-import { hasExistingBackups, initialize, isInitialized } from "#/lib/project";
+import {
+	cleanBackup,
+	hasExistingBackups,
+	initialize,
+	isInitialized,
+} from "#/lib/project";
 import { printTree } from "#/lib/tree";
 import {
 	getNukeEverythingGlob,
@@ -115,7 +120,9 @@ yargs(hideBin(process.argv))
 		"clean",
 		"Clean out the backups in the .nuke directory",
 		async (argv) => {
-			// await nukeEverything(process.cwd());
+			consola.start("Cleaning up backups...");
+			await cleanBackup(process.cwd());
+			consola.success("Backups cleaned");
 		},
 	)
 	.command(

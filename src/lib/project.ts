@@ -1,4 +1,4 @@
-import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
+import { mkdir, readFile, readdir, rmdir, writeFile } from "node:fs/promises";
 import { cp } from "node:fs/promises";
 import path from "node:path";
 import consola from "consola";
@@ -64,6 +64,16 @@ export async function backup(
 	});
 
 	await Promise.all(backups);
+}
+
+/**
+ * Clean the backup directory.
+ * @param rootDir - The root directory of the project.
+ */
+export async function cleanBackup(rootDir = process.cwd()) {
+	const backupDir = path.join(rootDir, DIR_CACHE);
+	await rmdir(backupDir, { recursive: true });
+	await mkdir(backupDir, { recursive: true });
 }
 
 /**
