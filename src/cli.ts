@@ -84,7 +84,8 @@ yargs(hideBin(process.argv))
 			}
 
 			if (result) {
-				consola.success("You successfully nuked your project");
+				console.log(ascii.vaultBoy2);
+				consola.success("You successfully nuked your project, good job!");
 			} else {
 				consola.info(
 					"Well this is awkward... nothing was nuked. Maybe you should try again?",
