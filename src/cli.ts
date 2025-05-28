@@ -60,10 +60,10 @@ yargs(hideBin(process.argv))
 				});
 		},
 		async (argv) => {
-			await initialize();
+			consola.start("Nuking your project...");
 
 			if (await isGitDirty()) {
-				if (argv.force) {
+				if (argv.force === true) {
 					consola.warn(
 						"You have unsaved changes, but you are forcing the nuke... good luck!",
 					);
@@ -72,14 +72,19 @@ yargs(hideBin(process.argv))
 				}
 			}
 
-			const result = await match(argv.type)
-				.with("all", () => nukeEverything(process.cwd()))
-				.with("node_modules", () => nukeNodeModules(process.cwd()))
-				.with("cache", () => nukeCache(process.cwd()))
-				.with("build", () => nukeBuilds(process.cwd()))
-				.otherwise(() => Promise.resolve(false));
+			// MUST be after dirty check cause we add files...
+			await initialize();
+
+			const result = true;
 
 			if (result) {
+				// const result = await match(argv.type)
+				// 	.with("all", () => nukeEverything(process.cwd()))
+				// 	.with("node_modules", () => nukeNodeModules(process.cwd()))
+				// 	.with("cache", () => nukeCache(process.cwd()))
+				// 	.with("build", () => nukeBuilds(process.cwd()))
+				// 	.otherwise(() => Promise.resolve(false));
+
 				if (argv.noFun !== true) {
 					console.log(ascii.vaultBoy2);
 				}

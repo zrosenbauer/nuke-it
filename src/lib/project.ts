@@ -68,7 +68,10 @@ export async function isInitialized(filePath = process.cwd()) {
  * @param filePath - The path to the project.
  * @param force - Whether to force initialize the project.
  */
-export async function initialize(filePath = process.cwd(), force = false) {
+export async function initialize(
+	filePath = process.cwd(),
+	force = false,
+): Promise<boolean> {
 	const cacheDir = path.join(filePath, DIR_CACHE);
 	const ignoreFile = path.join(filePath, FILE_IGNORE);
 	const gitignoreFile = path.join(filePath, FILE_GITIGNORE);
@@ -123,9 +126,11 @@ export async function initialize(filePath = process.cwd(), force = false) {
 					);
 				}
 				await appendToGitignore(gitignoreFile);
+				return true;
 			}
 		}
 	}
+	return false;
 }
 
 async function appendToGitignore(gitignoreFile: string) {
