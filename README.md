@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./assets/nuka-code.png" alt="banner for prompt merge" width="100%" />
+  <img src="./assets/nuka-code.png" alt="banner for nuka-code" width="100%" />
   <blockquote>
     <p>
       "Zap that cache!"
@@ -9,7 +9,7 @@
 
 # nuka-code
 
-A package brought to you by Nuka-Cola to zap away those pesky `cache`, `node_modules`, and other related files & directories.
+A package brought to you by the Nuka-Cola Corporation to zap away those pesky `cache`, `node_modules`, and other related files & directories.
 
 ![NPM Version](https://img.shields.io/npm/v/nuka-code)
 [![Code Standards & Testing](https://github.com/zrosenbauer/nuka-code/actions/workflows/ci.yaml/badge.svg)](https://github.com/zrosenbauer/nuka-code/actions/workflows/ci.yaml)
@@ -25,23 +25,34 @@ OR
 
 ```bash
 npm install -g nuka-code
-nuka-code --help
+nuka-code --help # or nuke --help
 ```
 
-## Nuking Code
+## What is this?
 
-This package will nuke the following:
+Nuka-Code is a CLI tool that removes the need to manually remove `cache`, `node_modules`, and other related files & directories. This can replace the usage of `rimraf` or other similar tools, to clean up your project aka restore
+it to a clean state (sort of like the first time you `git clone` your repo).
+
+## What does it do?
+
+This package will nuke (delete aka `rm -rf`) the following:
 
 - cache (`.turbo`, `.vite`, `.next`, etc.)
 - node_modules
 - build artifacts (`dist`, `out`, `build`, `bundle`, etc.)
 
 > ![CAUTION]
-> It SHOULD NOT nuke anything important like `package-lock.json`, `src/**/*.ts`, `yarn.lock`, but as with all things, use at your own risk.
+> By default, Nuka-Code SHOULD NOT nuke anything important like `package-lock.json`, `src/**/*.ts`, `yarn.lock`, but as with all things, use at your own risk.
 
-## Oops I nuked the wrong thing...
+## Troubleshooting
+
+### Oops I nuked the wrong thing...
 
 Well luckily, Nuka-Code provides a `.nuke/backup-*` directory that will contain a backup of the files that were nuked. Unfortunately, you will need to manually restore the files.
+
+### Its not deleting everything I want it to
+
+Please open an issue with what you want to add to the nuke list and we'll see, we also are considering adding a `nuke.config.ts` file to allow for more customization but for now simplicity is the name of the game.
 
 ## Acknowledgements
 

@@ -118,7 +118,21 @@ yargs(hideBin(process.argv))
 		"clean",
 		"Clean out the backups in the .nuke directory",
 		async (argv) => {
-			consola.start("Cleaning up backups...");
+			consola.start("Cleaning up backups");
+
+			if (
+				!(await consola.prompt(
+					"Are you sure you want to clean out the backups?",
+					{
+						type: "confirm",
+						default: false,
+					},
+				))
+			) {
+				consola.info("Aborting...");
+				return;
+			}
+
 			await cleanBackup(process.cwd());
 			consola.success("Backups cleaned");
 		},

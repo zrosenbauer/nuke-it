@@ -6,6 +6,7 @@ export default defineConfig({
 	format: ["cjs", "esm"],
 	dts: true,
 	clean: true,
+	treeshake: true,
 	splitting: false,
 	define: {
 		"import.meta.vitest": "undefined",
