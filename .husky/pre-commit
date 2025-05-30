@@ -1,1 +1,7 @@
+# fixes
+pnpm fix
+git add -A
+
+# auto-generate docs
 pnpm gen:docs 
+git add ./docs/globs.md

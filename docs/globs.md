@@ -3,7 +3,7 @@
 Nuka-Code uses glob patterns to determine what to nuke. You can find the list of supported globs below.
 
 > [!TIP]
-> It is recommended to add a `.nukeignore` file to your project to exclude files and directories from being nuked.
+> If certain files or directories in the globs should not be nuked, you can add a `.nukeignore` file to your project to exclude them.
 
 ## node_modules
 
