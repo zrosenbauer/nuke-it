@@ -1,3 +1,4 @@
+import consola from "consola";
 import { glob } from "glob";
 import ignore from "ignore";
 import { rimraf } from "rimraf";
@@ -27,14 +28,16 @@ export async function nukeNodeModules(
 	rootDir = process.cwd(),
 	runId = Date.now(),
 ) {
-	const found = unique(
-		await glob(getNukeNodeModulesGlob(), {
-			root: rootDir,
-		}),
-	);
-	await backup(found, runId, rootDir);
-	return await rimraf(await rejectIgnoredFiles(found, rootDir), {
+	const ignoreHelper = await createIgnoreFileHelper(rootDir);
+	// const found = unique(
+	// 	await glob(getNukeNodeModulesGlob(), {
+	// 		root: rootDir,
+	// 	}),
+	// );
+	// await backup(found, runId, rootDir);
+	return await rimraf(getNukeNodeModulesGlob(), {
 		glob: true,
+		filter: (filePath) => !ignoreHelper.test(filePath),
 	});
 }
 
@@ -44,14 +47,17 @@ export async function nukeNodeModules(
  * @returns The paths to the cache directories that should be nuked.
  */
 export async function nukeCache(rootDir = process.cwd(), runId = Date.now()) {
-	const found = unique(
-		await glob(getNukeCacheGlob(), {
-			root: rootDir,
-		}),
-	);
-	await backup(found, runId, rootDir);
-	return await rimraf(await rejectIgnoredFiles(found, rootDir), {
-		glob: false,
+	const ignoreHelper = await createIgnoreFileHelper(rootDir);
+
+	// const found = unique(
+	// 	await glob(getNukeCacheGlob(), {
+	// 		root: rootDir,
+	// 	}),
+	// );
+	// await backup(found, runId, rootDir);
+	return await rimraf(getNukeCacheGlob(), {
+		glob: true,
+		filter: (filePath) => !ignoreHelper.test(filePath),
 	});
 }
 
@@ -61,14 +67,10 @@ export async function nukeCache(rootDir = process.cwd(), runId = Date.now()) {
  * @returns The paths to the build directories that should be nuked.
  */
 export async function nukeBuilds(rootDir = process.cwd(), runId = Date.now()) {
-	const found = unique(
-		await glob(getNukeBuildsGlob(), {
-			root: rootDir,
-		}),
-	);
-	await backup(found, runId, rootDir);
-	return await rimraf(await rejectIgnoredFiles(found, rootDir), {
-		glob: false,
+	const ignoreHelper = await createIgnoreFileHelper(rootDir);
+	return await rimraf(getNukeBuildsGlob(), {
+		glob: true,
+		filter: (filePath) => !ignoreHelper.test(filePath),
 	});
 }
 
@@ -126,20 +128,11 @@ export function getNukeBuildsGlob() {
 }
 
 /**
- * Reject ignored files.
- * @param filePaths - The file paths to check.
+ * Create a helper to check if a file is ignored.
  * @param rootDir - The root directory of the project.
- * @returns The file paths that should be nuked.
+ * @returns The ignore file helper.
  */
-export async function rejectIgnoredFiles(
-	filePaths: string[],
-	rootDir = process.cwd(),
-) {
+export async function createIgnoreFileHelper(rootDir = process.cwd()) {
 	const ignoreFile = await readIgnoreFile(rootDir);
-	if (!ignoreFile) {
-		return filePaths;
-	}
-
-	// return filePaths;
-	return ignore().add(ignoreFile).filter(filePaths);
+	return ignore().add(ignoreFile ?? "");
 }
