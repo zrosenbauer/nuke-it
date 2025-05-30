@@ -1,5 +1,10 @@
 <div align="center">
   <img src="./assets/nuka-code.png" alt="banner for prompt merge" width="100%" />
+  <blockquote>
+    <p>
+      "Zap that cache!"
+    </p>
+  </blockquote>
 </div>
 
 # nuka-code
@@ -31,7 +36,8 @@ This package will nuke the following:
 - node_modules
 - build artifacts (`dist`, `out`, `build`, `bundle`, etc.)
 
-It will SHOULD not nuke anything important like `package-lock.json`, `src/**/*.ts`, `yarn.lock`, etc.
+> ![CAUTION]
+> It SHOULD NOT nuke anything important like `package-lock.json`, `src/**/*.ts`, `yarn.lock`, but as with all things, use at your own risk.
 
 ## Oops I nuked the wrong thing...
 
