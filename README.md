@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="/assets/hero.png" alt="banner for prompt merge" width="100%" />
+  <img src="./assets/nuka-code.png" alt="banner for prompt merge" width="100%" />
 </div>
 
 # nuka-code
@@ -31,9 +31,11 @@ This package will nuke the following:
 - node_modules
 - build artifacts (`dist`, `out`, `build`, `bundle`, etc.)
 
+It will SHOULD not nuke anything important like `package-lock.json`, `src/**/*.ts`, `yarn.lock`, etc.
+
 ## Oops I nuked the wrong thing...
 
-Well luckily, Nuka-Code provides a `.nuke/backups-*` directory that will contain a backup of the files that were nuked. Unfortunately, you will need to manually restore the files.
+Well luckily, Nuka-Code provides a `.nuke/backup-*` directory that will contain a backup of the files that were nuked. Unfortunately, you will need to manually restore the files.
 
 ## Acknowledgements
 
