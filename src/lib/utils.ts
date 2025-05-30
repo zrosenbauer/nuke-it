@@ -62,10 +62,18 @@ export function unique<T>(array: T[]): T[] {
 }
 
 /**
- * Convert file paths to glob patterns.
+ * Convert file paths to glob patterns to include ALL files matching (deep vs root level)
  * @param filePaths - The file paths to convert.
  * @returns The glob patterns.
  */
-export function toGlob(filePaths: string[]) {
-	return unique(filePaths.flatMap((filePath) => [filePath, `**/${filePath}`]));
+export function toDeepGlob(filePaths: string[]) {
+	return unique(
+		filePaths.flatMap((filePath) => {
+			if (filePath.includes("node_modules")) {
+				return [filePath, `**/${filePath}`];
+			}
+
+			return [filePath, `**/[!node_modules]**${filePath}`];
+		}),
+	);
 }

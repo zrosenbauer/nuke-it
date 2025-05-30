@@ -2,7 +2,7 @@ import { glob } from "glob";
 import ignore from "ignore";
 import { rimraf } from "rimraf";
 import { backup, readIgnoreFile } from "#/lib/project";
-import { toGlob, unique } from "#/lib/utils";
+import { toDeepGlob, unique } from "#/lib/utils";
 
 /**
  * Nuke everything.
@@ -89,7 +89,7 @@ export function getNukeEverythingGlob() {
  * @returns The glob patterns to the directories that should be nuked.
  */
 export function getNukeNodeModulesGlob() {
-	return toGlob(["node_modules"]);
+	return toDeepGlob(["node_modules"]);
 }
 
 /**
@@ -97,7 +97,7 @@ export function getNukeNodeModulesGlob() {
  * @returns The glob patterns to the directories that should be nuked.
  */
 export function getNukeCacheGlob() {
-	return toGlob([".turbo", ".nx/cache"]);
+	return toDeepGlob([".turbo", ".nx/cache"]);
 }
 
 /**
@@ -105,7 +105,7 @@ export function getNukeCacheGlob() {
  * @returns The glob patterns to the directories that should be nuked.
  */
 export function getNukeBuildsGlob() {
-	return toGlob([
+	return toDeepGlob([
 		"dist",
 		"out",
 		"output",
