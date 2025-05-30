@@ -9,7 +9,7 @@
 
 # nuka-code
 
-A package brought to you by Nuka-Cola to zap away those pesky cache, node_modules, and other related files & directories.
+A package brought to you by Nuka-Cola to zap away those pesky `cache`, `node_modules`, and other related files & directories.
 
 ![NPM Version](https://img.shields.io/npm/v/nuka-code)
 [![Code Standards & Testing](https://github.com/zrosenbauer/nuka-code/actions/workflows/ci.yaml/badge.svg)](https://github.com/zrosenbauer/nuka-code/actions/workflows/ci.yaml)
