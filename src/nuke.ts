@@ -1,9 +1,12 @@
-import path from "path";
-import consola from "consola";
-import { glob } from "glob";
+import path from "node:path";
+// import consola from "consola";
+// import { glob } from "glob";
 import ignore from "ignore";
 import { rimraf } from "rimraf";
-import { backup, readIgnoreFile } from "#/lib/project";
+import {
+	// backup,
+	readIgnoreFile,
+} from "#/lib/project";
 import { toDeepGlob, unique } from "#/lib/utils";
 
 /**
@@ -17,7 +20,11 @@ export async function nukeEverything(rootDir = process.cwd()) {
 	const builds = await nukeBuilds(rootDir, runId);
 	// MUST BE LAST or this breaks it cause we are NUKING node_modules
 	const nodeModules = await nukeNodeModules(rootDir, runId);
-	return [cache, builds, nodeModules].every((result) => result);
+	return {
+		cache,
+		builds,
+		node_modules: nodeModules,
+	};
 }
 
 /**
@@ -38,7 +45,9 @@ export async function nukeNodeModules(
 	// await backup(found, runId, rootDir);
 	return await rimraf(getNukeNodeModulesGlob(), {
 		glob: true,
-		filter: (filePath) => !ignoreHelper.test(path.relative(rootDir, filePath)),
+		filter: async (filePath) => {
+			return !ignoreHelper.test(path.relative(rootDir, filePath)).ignored;
+		},
 	});
 }
 
@@ -49,7 +58,6 @@ export async function nukeNodeModules(
  */
 export async function nukeCache(rootDir = process.cwd(), runId = Date.now()) {
 	const ignoreHelper = await createIgnoreFileHelper(rootDir);
-
 	// const found = unique(
 	// 	await glob(getNukeCacheGlob(), {
 	// 		root: rootDir,
@@ -58,7 +66,9 @@ export async function nukeCache(rootDir = process.cwd(), runId = Date.now()) {
 	// await backup(found, runId, rootDir);
 	return await rimraf(getNukeCacheGlob(), {
 		glob: true,
-		filter: (filePath) => !ignoreHelper.test(path.relative(rootDir, filePath)),
+		filter: async (filePath) => {
+			return !ignoreHelper.test(path.relative(rootDir, filePath)).ignored;
+		},
 	});
 }
 
@@ -69,9 +79,17 @@ export async function nukeCache(rootDir = process.cwd(), runId = Date.now()) {
  */
 export async function nukeBuilds(rootDir = process.cwd(), runId = Date.now()) {
 	const ignoreHelper = await createIgnoreFileHelper(rootDir);
+	// const found = unique(
+	// 	await glob(getNukeCacheGlob(), {
+	// 		root: rootDir,
+	// 	}),
+	// );
+	// await backup(found, runId, rootDir);
 	return await rimraf(getNukeBuildsGlob(), {
 		glob: true,
-		filter: (filePath) => !ignoreHelper.test(path.relative(rootDir, filePath)),
+		filter: async (filePath) => {
+			return !ignoreHelper.test(path.relative(rootDir, filePath)).ignored;
+		},
 	});
 }
 

@@ -9,8 +9,8 @@ import { hideBin } from "yargs/helpers";
 import ascii from "#/lib/ascii";
 import { isGitDirty } from "#/lib/git";
 import {
-	cleanBackup,
-	hasExistingBackups,
+	// cleanBackup,
+	// hasExistingBackups,
 	initialize,
 	isInitialized,
 } from "#/lib/project";
@@ -82,20 +82,20 @@ yargs(hideBin(process.argv))
 			// MUST be after dirty check cause we add files...
 			await initialize();
 
-			if (!(await hasExistingBackups())) {
-				if (
-					!(await consola.prompt(
-						"This seems to be the first nuke you've dropped...make sure you know what you're doing! Do you want to continue?",
-						{
-							type: "confirm",
-							default: false,
-						},
-					))
-				) {
-					consola.info("Aborting...");
-					return;
-				}
-			}
+			// if (!(await hasExistingBackups())) {
+			// 	if (
+			// 		!(await consola.prompt(
+			// 			"This seems to be the first nuke you've dropped...make sure you know what you're doing! Do you want to continue?",
+			// 			{
+			// 				type: "confirm",
+			// 				default: false,
+			// 			},
+			// 		))
+			// 	) {
+			// 		consola.info("Aborting...");
+			// 		return;
+			// 	}
+			// }
 
 			const result = await match(argv.type)
 				.with("all", () => nukeEverything(process.cwd()))
@@ -116,29 +116,29 @@ yargs(hideBin(process.argv))
 			}
 		},
 	)
-	.command(
-		"clean",
-		"Clean out the backups in the .nuke directory",
-		async (argv) => {
-			consola.start("Cleaning up backups");
+	// .command(
+	// 	"clean",
+	// 	"Clean out the backups in the .nuke directory",
+	// 	async (argv) => {
+	// 		consola.start("Cleaning up backups");
 
-			if (
-				!(await consola.prompt(
-					"Are you sure you want to clean out the backups?",
-					{
-						type: "confirm",
-						default: false,
-					},
-				))
-			) {
-				consola.info("Aborting...");
-				return;
-			}
+	// 		if (
+	// 			!(await consola.prompt(
+	// 				"Are you sure you want to clean out the backups?",
+	// 				{
+	// 					type: "confirm",
+	// 					default: false,
+	// 				},
+	// 			))
+	// 		) {
+	// 			consola.info("Aborting...");
+	// 			return;
+	// 		}
 
-			await cleanBackup(process.cwd());
-			consola.success("Backups cleaned");
-		},
-	)
+	// 		await cleanBackup(process.cwd());
+	// 		consola.success("Backups cleaned");
+	// 	},
+	// )
 	.command(
 		"list",
 		"List all the files that would be nuked",

@@ -50,7 +50,7 @@ You can view a full list of globs [here](./docs/globs.md).
 
 ### Oops I nuked the wrong thing...
 
-Well luckily, Nuka-Code provides a `.nuke/backup-*` directory that will contain a backup of the files that were nuked. Unfortunately, you will need to manually restore the files.
+Unless you passed in the `--force` flag, Nuka-Code will ask you for confirmation before nuking anything... so please `git commit` your changes before running `nuka-code`!
 
 ### Its not deleting everything I want it to
 

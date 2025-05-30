@@ -9,6 +9,7 @@ const DIR_CACHE = ".nuke";
 const FILE_IGNORE = ".nukeignore";
 const FILE_GITIGNORE = ".gitignore";
 
+let ignoreFileCache: string | null = null;
 /**
  * Get the ignore file for the project.
  * @param filePath - The path to the project.
@@ -16,8 +17,13 @@ const FILE_GITIGNORE = ".gitignore";
  */
 export async function readIgnoreFile(filePath = process.cwd()) {
 	try {
+		if (ignoreFileCache) {
+			return ignoreFileCache;
+		}
+
 		const ignoreFile = path.join(filePath, FILE_IGNORE);
-		return await readFile(ignoreFile, "utf8");
+		ignoreFileCache = await readFile(ignoreFile, "utf8");
+		return ignoreFileCache;
 	} catch (error) {
 		return null;
 	}
@@ -39,6 +45,7 @@ export async function hasExistingBackups(rootDir = process.cwd()) {
 }
 
 /**
+ * @todo implement this
  * Create a backup of the files.
  * @param filePaths - The paths to the files to backup.
  * @param rootDir - The root directory of the project.
@@ -83,9 +90,10 @@ export async function cleanBackup(rootDir = process.cwd()) {
  */
 export async function isInitialized(filePath = process.cwd()) {
 	const ignoreFile = path.join(filePath, FILE_IGNORE);
-	const cacheDir = path.join(filePath, DIR_CACHE);
+	// const cacheDir = path.join(filePath, DIR_CACHE);
 
-	return (await exists(ignoreFile)) && (await exists(cacheDir));
+	return await exists(ignoreFile);
+	// return (await exists(ignoreFile)) && (await exists(cacheDir));
 }
 
 /**
@@ -135,9 +143,9 @@ export async function initialize(
 		if (root && !(await isInitialized(filePath))) {
 			consola.info("Initializing project...");
 
-			if (!(await exists(cacheDir))) {
-				await mkdir(cacheDir);
-			}
+			// if (!(await exists(cacheDir))) {
+			// 	await mkdir(cacheDir);
+			// }
 
 			if (!(await exists(ignoreFile))) {
 				await writeFile(
