@@ -6,6 +6,7 @@ import { glob } from "glob";
 import { match } from "ts-pattern";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
+import yoctoSpinner from "yocto-spinner";
 import ascii from "#/lib/ascii";
 import { isGitDirty } from "#/lib/git";
 import {
@@ -95,7 +96,11 @@ yargs(hideBin(process.argv))
 			// 		consola.info("Aborting...");
 			// 		return;
 			// 	}
-			// }
+			// i}
+
+			const spinner = yoctoSpinner({
+				text: "Nuking your project... brace for impact!",
+			}).start();
 
 			const result = await match(argv.type)
 				.with("all", () => nukeEverything(process.cwd()))
@@ -104,6 +109,7 @@ yargs(hideBin(process.argv))
 				.with("build", () => nukeBuilds(process.cwd()))
 				.otherwise(() => Promise.resolve(false));
 
+			spinner.success();
 			if (result) {
 				if (argv.noFun !== true) {
 					console.log(ascii.vaultBoy2);
