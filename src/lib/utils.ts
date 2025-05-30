@@ -73,7 +73,7 @@ export function toDeepGlob(filePaths: string[]) {
 				return [filePath, `**/${filePath}`];
 			}
 
-			return [filePath, `**/[!node_modules]**${filePath}`];
+			return [filePath, `**/[!node_modules]**/${filePath}`];
 		}),
 	);
 }
