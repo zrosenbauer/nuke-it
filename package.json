@@ -1,5 +1,5 @@
 {
-	"name": "nuka-cola",
+	"name": "nuka-code",
 	"version": "0.0.1",
 	"description": "A package brought to you by Nuka-Cola to zap away those pesky cache, node_modules, and other related files & directories.",
 	"type": "module",
