@@ -16,12 +16,12 @@ import {
 } from "#/lib/project";
 import { printTree } from "#/lib/tree";
 import {
+	createIgnoreFileHelper,
 	getNukeEverythingGlob,
 	nukeBuilds,
 	nukeCache,
 	nukeEverything,
 	nukeNodeModules,
-	rejectIgnoredFiles,
 } from "#/nuke";
 
 yargs(hideBin(process.argv))
@@ -176,7 +176,8 @@ yargs(hideBin(process.argv))
 					root: process.cwd(),
 					includeChildMatches: argv.verbose,
 				});
-				printTree(await rejectIgnoredFiles(found, process.cwd()));
+				const ignoreHelper = await createIgnoreFileHelper(process.cwd());
+				printTree(ignoreHelper.filter(found));
 			}
 		},
 	)
