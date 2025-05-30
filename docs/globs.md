@@ -17,39 +17,39 @@ The directory(s) where your project's dependencies are installed.
 The directory(s) where your project's build artifacts are stored, such as `dist`, `out`, `build`, `bundle`, etc.
 
 - `dist`
-- `**/dist`
+- `**/[!node_modules]**dist`
 - `out`
-- `**/out`
+- `**/[!node_modules]**out`
 - `output`
-- `**/output`
+- `**/[!node_modules]**output`
 - `outputs`
-- `**/outputs`
+- `**/[!node_modules]**outputs`
 - `bundle`
-- `**/bundle`
+- `**/[!node_modules]**bundle`
 - `.vercel`
-- `**/.vercel`
+- `**/[!node_modules]**.vercel`
 - `.next`
-- `**/.next`
+- `**/[!node_modules]**.next`
 - `.nuxt`
-- `**/.nuxt`
+- `**/[!node_modules]**.nuxt`
 - `.svelte-kit`
-- `**/.svelte-kit`
+- `**/[!node_modules]**.svelte-kit`
 - `.vinxi`
-- `**/.vinxi`
+- `**/[!node_modules]**.vinxi`
 - `.vuepress/dist`
-- `**/.vuepress/dist`
+- `**/[!node_modules]**.vuepress/dist`
 - `storybook-static`
-- `**/storybook-static`
+- `**/[!node_modules]**storybook-static`
 - `coverage`
-- `**/coverage`
+- `**/[!node_modules]**coverage`
 - `public/build`
-- `**/public/build`
+- `**/[!node_modules]**public/build`
 
 ## cache
 
 The directory(s) where your project's cache is stored, such as `.turbo`, `.vite`, `.next`, etc.
 
 - `.turbo`
-- `**/.turbo`
+- `**/[!node_modules]**.turbo`
 - `.nx/cache`
-- `**/.nx/cache`
+- `**/[!node_modules]**.nx/cache`
