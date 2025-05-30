@@ -1,3 +1,4 @@
+import path from "path";
 import consola from "consola";
 import { glob } from "glob";
 import ignore from "ignore";
@@ -37,7 +38,7 @@ export async function nukeNodeModules(
 	// await backup(found, runId, rootDir);
 	return await rimraf(getNukeNodeModulesGlob(), {
 		glob: true,
-		filter: (filePath) => !ignoreHelper.test(filePath),
+		filter: (filePath) => !ignoreHelper.test(path.relative(rootDir, filePath)),
 	});
 }
 
@@ -57,7 +58,7 @@ export async function nukeCache(rootDir = process.cwd(), runId = Date.now()) {
 	// await backup(found, runId, rootDir);
 	return await rimraf(getNukeCacheGlob(), {
 		glob: true,
-		filter: (filePath) => !ignoreHelper.test(filePath),
+		filter: (filePath) => !ignoreHelper.test(path.relative(rootDir, filePath)),
 	});
 }
 
@@ -70,7 +71,7 @@ export async function nukeBuilds(rootDir = process.cwd(), runId = Date.now()) {
 	const ignoreHelper = await createIgnoreFileHelper(rootDir);
 	return await rimraf(getNukeBuildsGlob(), {
 		glob: true,
-		filter: (filePath) => !ignoreHelper.test(filePath),
+		filter: (filePath) => !ignoreHelper.test(path.relative(rootDir, filePath)),
 	});
 }
 
