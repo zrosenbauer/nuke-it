@@ -7,6 +7,7 @@ import { match } from "ts-pattern";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 import ascii from "#/lib/ascii";
+import { isGitDirty } from "#/lib/git";
 import {
 	cleanBackup,
 	hasExistingBackups,
@@ -22,7 +23,6 @@ import {
 	nukeNodeModules,
 	rejectIgnoredFiles,
 } from "#/nuke";
-import { isGitDirty } from "./lib/git";
 
 yargs(hideBin(process.argv))
 	.scriptName("nuke")

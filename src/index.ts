@@ -1,1 +1,1 @@
-export * from "./nuke.js";
+export * from "#/nuke";

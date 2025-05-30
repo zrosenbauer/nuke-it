@@ -1,0 +1,43 @@
+name: 'Code Standards & Testing' 
+
+on:
+  pull_request:
+    types: [synchronize, opened, reopened, ready_for_review]
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    name: Continuous Integration Suite
+    timeout-minutes: 7
+    if: ${{ !github.event.pull_request.draft }}
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: '⬇️ Checkout Code'        
+        uses: actions/checkout@v4
+        
+      - name: '💚 Setup Node'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm'
+          
+      - name: '📦 Install Packages'
+        run: pnpm install
+
+      - name: '🕵️ Code Linting & Formatting'
+        run: pnpm turbo check
+        
+      - name: '🟦 Typecheck'
+        run: pnpm turbo types
+
+      - name: '🧪 Test'
+        run: pnpm turbo test 
+

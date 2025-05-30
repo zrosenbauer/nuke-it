@@ -1,7 +1,6 @@
 import { glob } from "glob";
 import ignore from "ignore";
 import { rimraf } from "rimraf";
-import { P, match } from "ts-pattern";
 import { backup, readIgnoreFile } from "#/lib/project";
 import { toGlob, unique } from "#/lib/utils";
 

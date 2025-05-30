@@ -1,15 +1,54 @@
-# nuka-cola
+<div align="center">
+  <img src="/assets/hero.png" alt="banner for prompt merge" width="100%" />
+</div>
 
-nuke stuff
+# nuka-code
 
-# Todos
+A package brought to you by Nuka-Cola to zap away those pesky cache, node_modules, and other related files & directories.
 
-cover the base cases:
-- major frameworks: next, nuxt, svelte, start, vite
-- monorepos: lerna, turbo, nx
-- package managers: pnpm, yarn, npm
-- core: i.e. dist/out/build/bundle
-- make sure to provide a list the FIRST time they run it locally and add the `.nuke` to the root of the project and the `.gitignore`
+![NPM Version](https://img.shields.io/npm/v/nuka-code)
+[![Code Standards & Testing](https://github.com/zrosenbauer/nuka-code/actions/workflows/ci.yaml/badge.svg)](https://github.com/zrosenbauer/nuka-code/actions/workflows/ci.yaml)
+[![Checked with Biome](https://img.shields.io/badge/Checked_with-Biome-60a5fa?style=flat&logo=biome)](https://biomejs.dev)
 
-provide a `.nukeignore` file that can be used to ignore certain directories and files.
-provide a `.nuke.config.ts` / `.nuke.ts` that can be used to configure the nuke process.
+## Usage
+
+```bash
+npx nuka-code --help
+```
+
+OR
+
+```bash
+npm install -g nuka-code
+nuka-code --help
+```
+
+## Nuking Code
+
+This package will nuke the following:
+
+- cache (`.turbo`, `.vite`, `.next`, etc.)
+- node_modules
+- build artifacts (`dist`, `out`, `build`, `bundle`, etc.)
+
+## Oops I nuked the wrong thing...
+
+Well luckily, Nuka-Code provides a `.nuke/backups-*` directory that will contain a backup of the files that were nuked. Unfortunately, you will need to manually restore the files.
+
+## Acknowledgements
+
+The name, content, art, and other assets are based on the wonderful Fallout universe, and the Nuka-Cola brand. This is fan-art in the form of an npm package and not intended for commercial use or profit, and is not affiliated with Bethesda Softworks or any of its affiliates.
+
+<!-- Sponsorship footer -->
+<br>
+<br>
+<hr>
+<div align="center">
+  <h2>Sponsorship</h1>
+  <div><sup>Special thanks to:</sup></div>
+  <br>
+  <br>
+  <a href="https://www.joggr.io/?utm_source=github&utm_medium=org-readme&utm_campaign=static-docs">
+    <img src="https://assets.joggr.io/logos/logo.png" width="160"/>
+  </a>
+</div>

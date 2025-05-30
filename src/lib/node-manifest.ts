@@ -148,7 +148,7 @@ if (import.meta.vitest) {
 				},
 			};
 
-			const result = hasDependency(packageJson, "test-dep");
+			const result = hasDependency(packageJson, "not-a-dep");
 			expect(result).toBe(false);
 		});
 	});

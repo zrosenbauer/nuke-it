@@ -1,35 +1,33 @@
 {
 	"name": "nuka-cola",
 	"version": "0.0.1",
-	"description": "A package brought to you by Vault-tec to help you \"nuke\" your non-essentials: such cache (.turbo), package manager (node_modules) and other related files & directories.",
+	"description": "A package brought to you by Nuka-Cola to zap away those pesky cache, node_modules, and other related files & directories.",
 	"type": "module",
 	"main": "dist/index.js",
 	"module": "dist/index.mjs",
 	"exports": {
 		".": {
 			"import": {
-				"types": "./dist/index.d.mts",
-				"default": "./dist/index.mjs"
-			},
-			"require": {
 				"types": "./dist/index.d.ts",
 				"default": "./dist/index.js"
+			},
+			"require": {
+				"types": "./dist/index.d.cts",
+				"default": "./dist/index.cjs"
 			}
 		}
 	},
-	"files": [
-		"dist",
-		"README.md",
-		"LICENSE",
-		"package.json",
-		"pnpm-lock.yaml"
-	],
+	"files": ["dist", "README.md", "LICENSE", "package.json", "pnpm-lock.yaml"],
 	"bin": {
-		"nuka-cola": "./dist/cli.js",
+		"nuka-code": "./dist/cli.js",
 		"nuke": "./dist/cli.js"
+	},
+	"engines": {
+		"node": ">=22.0.0"
 	},
 	"scripts": {
 		"test": "vitest",
+		"test:coverage": "vitest run --coverage",
 		"build": "tsup",
 		"dev": "tsup --watch",
 		"fix": "biome check --write",
@@ -66,7 +64,9 @@
 		"@tsconfig/node24": "^24.0.1",
 		"@types/node": "^22.15.23",
 		"@types/yargs": "^17.0.33",
+		"@vitest/coverage-v8": "3.1.4",
 		"tsup": "^8.5.0",
+		"turbo": "^2.5.4",
 		"type-fest": "^4.41.0",
 		"typescript": "^5.8.3",
 		"vite-tsconfig-paths": "^5.1.4",
