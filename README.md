@@ -68,7 +68,6 @@ The name, content, art, and other assets are based on the wonderful Fallout univ
   <h2>Sponsorship</h1>
   <div><sup>Special thanks to:</sup></div>
   <br>
-  <br>
   <a href="https://www.joggr.io/?utm_source=github&utm_medium=org-readme&utm_campaign=static-docs">
     <img src="https://assets.joggr.io/logos/logo.png" width="160"/>
   </a>
