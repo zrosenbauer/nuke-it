@@ -59,7 +59,8 @@ export async function backup(
 	}
 
 	const backups = filePaths.map(async (filePath) => {
-		const backupFilePath = path.join(backupDir, path.basename(filePath));
+		const backupFilePath = path.join(backupDir, filePath);
+		console.log(filePath, backupFilePath);
 		await cp(filePath, `${backupFilePath}/`, { recursive: true });
 	});
 

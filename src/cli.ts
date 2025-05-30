@@ -36,11 +36,13 @@ yargs(hideBin(process.argv))
 	.option("no-fun", {
 		type: "boolean",
 		description: "Do not print ascii art to the console",
+		default: false,
 	})
 	.option("verbose", {
 		alias: "V",
 		type: "boolean",
 		description: "Run with verbose output",
+		default: false,
 	})
 	.showHelpOnFail(false)
 	.fail((msg, err, yargs) => {
