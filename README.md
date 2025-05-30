@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./assets/nuka-code.png" alt="banner for nuka-code" width="100%" />
+  <img src="./assets/banner.png" alt="banner for nuka-code" width="100%" />
   <blockquote>
     <p>
       "Zap that cache!"
