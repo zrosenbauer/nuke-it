@@ -43,7 +43,7 @@ This package will nuke (delete aka `rm -rf`) the following:
 
 You can view a full list of globs [here](./docs/globs.md).
 
-> ![CAUTION]
+> [!WARNING]
 > By default, Nuka-Code SHOULD NOT nuke anything important like `package-lock.json`, `src/**/*.ts`, `yarn.lock`, but as with all things, use at your own risk.
 
 ## Troubleshooting
