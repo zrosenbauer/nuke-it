@@ -17,39 +17,39 @@ The directory(s) where your project's dependencies are installed.
 The directory(s) where your project's build artifacts are stored, such as `dist`, `out`, `build`, `bundle`, etc.
 
 - `dist`
-- `**/[!node_modules]**dist`
+- `**/[!node_modules]**/dist`
 - `out`
-- `**/[!node_modules]**out`
+- `**/[!node_modules]**/out`
 - `output`
-- `**/[!node_modules]**output`
+- `**/[!node_modules]**/output`
 - `outputs`
-- `**/[!node_modules]**outputs`
+- `**/[!node_modules]**/outputs`
 - `bundle`
-- `**/[!node_modules]**bundle`
+- `**/[!node_modules]**/bundle`
 - `.vercel`
-- `**/[!node_modules]**.vercel`
+- `**/[!node_modules]**/.vercel`
 - `.next`
-- `**/[!node_modules]**.next`
+- `**/[!node_modules]**/.next`
 - `.nuxt`
-- `**/[!node_modules]**.nuxt`
+- `**/[!node_modules]**/.nuxt`
 - `.svelte-kit`
-- `**/[!node_modules]**.svelte-kit`
+- `**/[!node_modules]**/.svelte-kit`
 - `.vinxi`
-- `**/[!node_modules]**.vinxi`
+- `**/[!node_modules]**/.vinxi`
 - `.vuepress/dist`
-- `**/[!node_modules]**.vuepress/dist`
+- `**/[!node_modules]**/.vuepress/dist`
 - `storybook-static`
-- `**/[!node_modules]**storybook-static`
+- `**/[!node_modules]**/storybook-static`
 - `coverage`
-- `**/[!node_modules]**coverage`
+- `**/[!node_modules]**/coverage`
 - `public/build`
-- `**/[!node_modules]**public/build`
+- `**/[!node_modules]**/public/build`
 
 ## cache
 
 The directory(s) where your project's cache is stored, such as `.turbo`, `.vite`, `.next`, etc.
 
 - `.turbo`
-- `**/[!node_modules]**.turbo`
+- `**/[!node_modules]**/.turbo`
 - `.nx/cache`
-- `**/[!node_modules]**.nx/cache`
+- `**/[!node_modules]**/.nx/cache`
