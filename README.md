@@ -41,6 +41,8 @@ This package will nuke (delete aka `rm -rf`) the following:
 - node_modules
 - build artifacts (`dist`, `out`, `build`, `bundle`, etc.)
 
+You can view a full list of globs [here](./docs/globs.md).
+
 > ![CAUTION]
 > By default, Nuka-Code SHOULD NOT nuke anything important like `package-lock.json`, `src/**/*.ts`, `yarn.lock`, but as with all things, use at your own risk.
 
