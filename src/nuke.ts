@@ -110,7 +110,15 @@ export function getNukeEverythingGlob() {
  * @returns The glob patterns to the directories that should be nuked.
  */
 export function getNukeNodeModulesGlob() {
-	return toDeepGlob(["node_modules"]);
+	return [
+		// Deeply nested node_modules
+		"node_modules",
+		"**/node_modules",
+
+		// Yarn 2+
+		".pnp.cjs",
+		".pnp.loader.mjs",
+	];
 }
 
 /**

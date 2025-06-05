@@ -11,6 +11,8 @@ The directory(s) where your project's dependencies are installed.
 
 - `node_modules`
 - `**/node_modules`
+- `.pnp.cjs`
+- `.pnp.loader.mjs`
 
 ## build
 
