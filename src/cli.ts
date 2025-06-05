@@ -1,9 +1,8 @@
 #!/usr/bin/env node
-
 import chalk from "chalk";
 import consola from "consola";
 import { glob } from "glob";
-import { match } from "ts-pattern";
+import { P, match } from "ts-pattern";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 import yoctoSpinner from "yocto-spinner";
@@ -25,12 +24,33 @@ import {
 	nukeNodeModules,
 } from "#/nuke";
 
-yargs(hideBin(process.argv))
+const cli = yargs(hideBin(process.argv));
+
+cli
 	.scriptName("nuke")
+	.wrap(Math.min(100, cli.terminalWidth()))
 	.usage(
 		[
-			ascii.logo,
-			"\n--------------------------------------------------------------------------\n",
+			match(cli.terminalWidth())
+				.with(
+					P.number,
+					(s) => s > 100,
+					() => ascii.logo,
+				)
+				.with(
+					P.number,
+					(s) => s >= 80,
+					() => ascii.logoSmall,
+				)
+				.otherwise(() => `☢️ ${chalk.bold.green("Nuka-Code")}`),
+			match(cli.terminalWidth())
+				.with(
+					P.number,
+					(s) => s >= 80,
+					() =>
+						"\n--------------------------------------------------------------------------\n",
+				)
+				.otherwise(() => "---------------------------------------------\n"),
 			`${chalk.bold.green("nuke")} - A CLI tool for ${chalk.italic("nuking")} your non-essentials aka your node_modules, cache, and build directories.`,
 		].join("\n"),
 	)
@@ -51,7 +71,7 @@ yargs(hideBin(process.argv))
 		process.exit(1);
 	})
 	.command(
-		"it",
+		["*", "it"],
 		`Time to ${chalk.bold("NUKE IT")}! Drop the nuke on your project`,
 		(yargs) => {
 			return yargs
