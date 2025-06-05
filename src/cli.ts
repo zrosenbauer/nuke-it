@@ -28,6 +28,7 @@ const cli = yargs(hideBin(process.argv));
 
 cli
 	.scriptName("nuke")
+	.version()
 	.wrap(Math.min(100, cli.terminalWidth()))
 	.usage(
 		[
